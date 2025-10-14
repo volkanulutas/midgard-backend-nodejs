@@ -6,7 +6,9 @@ const app = express();
 // Frontend çalıştığı adresleri buraya ekle
 const allowedOrigins = [
   "http://localhost:8080",
-  "http://169.254.230.135:8080"
+  "http://169.254.230.135:8080",
+  "http://169.254.230.135:8080",
+  "https://midgard-backend-nodejs.onrender.com"
 ];
 
 app.use(cors({

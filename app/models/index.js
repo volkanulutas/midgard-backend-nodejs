@@ -1,24 +1,15 @@
+const { Sequelize } = require("sequelize");
 const dbConfig = require("../config/db.config.js");
 
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-  host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
-  operatorsAliases: false,
+// dbConfig içindeki sequelize nesnesini al
+const sequelize = dbConfig.sequelize;
 
-  pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle
-  }
-});
-
+// Sequelize model tanımları için db nesnesi oluştur
 const db = {};
-
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+// Modelleri yükle
 db.tutorials = require("./tutorial.model.js")(sequelize, Sequelize);
 db.messages = require("./message.model.js")(sequelize, Sequelize);
 

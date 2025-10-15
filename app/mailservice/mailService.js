@@ -36,4 +36,4 @@ async function sendMail(messageData) {
   
 }
 
-module.exports = { sendMail };
+export { sendMail };

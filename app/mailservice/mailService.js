@@ -1,4 +1,5 @@
-const nodemailer = require("nodemailer");
+import sgMail from "@sendgrid/mail";
+import dotenv from "dotenv";
 
 // Gmail transporter ayarı
 const transporter = nodemailer.createTransport({
@@ -10,12 +11,12 @@ const transporter = nodemailer.createTransport({
 });
 
 async function sendMail(messageData) {
-  try {
-    let info = await transporter.sendMail({
-      from: `"Web Form" <midgardoffice@gmail.com>`,  // Gönderen
-      to: "info@midgardoffice.com, volkanulutas@gmail.com",                  // Nereye gidecek
-      subject: messageData.subject,               // Konu
-      text: `
+
+   const msg = {
+    to: "volkanulutas@gmail.com", 
+    from: "midgardoffice@gmail.com",
+    subject: messageData.subject,
+    text: `
         Yeni bir mesaj var!
         İsim: ${messageData.name}
         Telefon: ${messageData.telephone}
@@ -23,7 +24,7 @@ async function sendMail(messageData) {
         Konu: ${messageData.subject}
         Mesaj: ${messageData.content}
       `,
-      html: `
+        html: `
         <h3>Yeni Mesaj</h3>
         <p><b>İsim:</b> ${messageData.name}</p>
         <p><b>Telefon:</b> ${messageData.telephone}</p>
@@ -31,14 +32,16 @@ async function sendMail(messageData) {
         <p><b>Konu:</b> ${messageData.subject}</p>
         <p><b>Mesaj:</b> ${messageData.content}</p>
       `
-    });
+  };
 
-    console.log("Mail gönderildi: %s", info.messageId);
-    return info;
-  } catch (err) {
-    console.error("Mail gönderilemedi:", err);
-    throw err;
+  try {
+    await sgMail.send(msg);
+    console.log("Email başarıyla gönderildi!");
+  } catch (error) {
+    console.error("Email gönderilirken hata:", error);
+    if (error.response) console.error(error.response.body);
   }
+  
 }
 
 module.exports = { sendMail };

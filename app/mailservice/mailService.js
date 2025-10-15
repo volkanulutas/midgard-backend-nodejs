@@ -1,14 +1,6 @@
 import sgMail from "@sendgrid/mail";
-import dotenv from "dotenv";
 
-// Gmail transporter ayarı
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: "midgardoffice@gmail.com",   // kendi gmail adresin
-    pass: "ispw iqbr vypq kpxt"        // Google uygulama şifresi
-  }
-});
+
 
 async function sendMail(messageData) {
 

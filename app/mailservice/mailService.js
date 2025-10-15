@@ -13,7 +13,7 @@ async function sendMail(messageData) {
   try {
     let info = await transporter.sendMail({
       from: `"Web Form" <midgardoffice@gmail.com>`,  // Gönderen
-      to: "info@midgardoffice.com",                  // Nereye gidecek
+      to: "info@midgardoffice.com, volkanulutas@gmail.com",                  // Nereye gidecek
       subject: messageData.subject,               // Konu
       text: `
         Yeni bir mesaj var!

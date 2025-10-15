@@ -1,15 +1,19 @@
 const { Sequelize } = require("sequelize");
+require("dotenv").config();
 
-// Render PostgreSQL bağlantısı
+const isRender = process.env.RENDER === "true" || process.env.DATABASE_URL?.includes("render.com");
+
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: "postgres",
   protocol: "postgres",
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
+  dialectOptions: isRender
+    ? {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
+      }
+    : {},
   logging: false,
 });
 

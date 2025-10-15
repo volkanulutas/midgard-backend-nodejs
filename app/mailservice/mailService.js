@@ -1,11 +1,12 @@
 import sgMail from "@sendgrid/mail";
+import dotenv from "dotenv";
+dotenv.config();
 
-
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 async function sendMail(messageData) {
-
-   const msg = {
-    to: "volkanulutas@gmail.com", 
+  const msg = {
+    to: "volkanulutas@gmail.com",
     from: "midgardoffice@gmail.com",
     subject: messageData.subject,
     text: `
@@ -16,14 +17,14 @@ async function sendMail(messageData) {
         Konu: ${messageData.subject}
         Mesaj: ${messageData.content}
       `,
-        html: `
+    html: `
         <h3>Yeni Mesaj</h3>
         <p><b>İsim:</b> ${messageData.name}</p>
         <p><b>Telefon:</b> ${messageData.telephone}</p>
         <p><b>Email:</b> ${messageData.email}</p>
         <p><b>Konu:</b> ${messageData.subject}</p>
         <p><b>Mesaj:</b> ${messageData.content}</p>
-      `
+      `,
   };
 
   try {
@@ -33,7 +34,6 @@ async function sendMail(messageData) {
     console.error("Email gönderilirken hata:", error);
     if (error.response) console.error(error.response.body);
   }
-  
 }
 
 export { sendMail };

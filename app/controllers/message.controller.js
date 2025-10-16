@@ -44,6 +44,7 @@ exports.create = async (req, res) => {
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
   console.log("Message findAll. ");
+  /*
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
@@ -57,6 +58,7 @@ exports.findAll = (req, res) => {
           err.message || "Some error occurred while retrieving Messages."
       });
     });
+  */
 };
 
 // Find a single Tutorial with an id
